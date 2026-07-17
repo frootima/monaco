@@ -1,5 +1,8 @@
 # Dynatrace Monaco and Jenkins POC
 
+For a production Bitbucket and Jenkins implementation, see
+[`PRODUCTION_RUNBOOK.md`](PRODUCTION_RUNBOOK.md).
+
 This repository manages a Dynatrace Platform dashboard and Davis anomaly alerts
 as code. Jenkins watches the `main` branch, validates each change with Monaco,
 and deploys it to `https://ann36102.apps.dynatrace.com`.
