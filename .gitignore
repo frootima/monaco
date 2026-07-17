@@ -1,0 +1,6 @@
+.env
+jenkins_home/
+.idea/
+.vscode/
+*.log
+.logs/

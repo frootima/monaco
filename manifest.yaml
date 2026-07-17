@@ -1,0 +1,16 @@
+manifestVersion: "1.0"
+
+projects:
+  - name: kafka-reds-observability
+    path: projects/kafka-reds-observability
+
+environmentGroups:
+  - name: production
+    environments:
+      - name: ann36102
+        url:
+          type: environment
+          value: DT_ENV_URL
+        auth:
+          token:
+            name: DT_API_TOKEN

@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "summary": "Kafka REDS replication efficiency is below 80 percent",
+  "queryDefinition": {
+    "type": "METRIC_KEY",
+    "metricKey": "custom.kafka.replication.efficiency",
+    "metricSelector": "custom.kafka.replication.efficiency",
+    "aggregation": "AVG",
+    "entityFilter": {
+      "conditions": []
+    },
+    "dimensionFilter": []
+  },
+  "modelProperties": {
+    "type": "STATIC_THRESHOLD",
+    "threshold": 80,
+    "alertOnNoData": false,
+    "signalFluctuation": 1,
+    "tolerance": 0,
+    "alertCondition": "BELOW",
+    "violatingSamples": 5,
+    "samples": 5,
+    "dealertingSamples": 5
+  },
+  "eventTemplate": {
+    "title": "Kafka REDS replication efficiency is low",
+    "description": "Replication efficiency remained below 80 percent for five minutes.",
+    "eventType": "CUSTOM_ALERT",
+    "davisMerge": true,
+    "metadata": [
+      {
+        "metadataKey": "dt.source",
+        "metadataValue": "monaco-jenkins"
+      }
+    ]
+  }
+}

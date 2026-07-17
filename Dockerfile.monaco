@@ -1,0 +1,26 @@
+FROM alpine:3.22
+
+ARG TARGETARCH
+ARG MONACO_VERSION=latest
+
+RUN apk add --no-cache ca-certificates curl \
+    && case "${TARGETARCH}" in \
+         amd64|arm64|386) MONACO_ARCH="${TARGETARCH}" ;; \
+         *) echo "Unsupported architecture: ${TARGETARCH}" >&2; exit 1 ;; \
+       esac \
+    && if [ "${MONACO_VERSION}" = "latest" ]; then \
+         RELEASE_URL="https://github.com/Dynatrace/dynatrace-configuration-as-code/releases/latest/download"; \
+       else \
+         RELEASE_URL="https://github.com/Dynatrace/dynatrace-configuration-as-code/releases/download/${MONACO_VERSION}"; \
+       fi \
+    && BINARY="monaco-linux-${MONACO_ARCH}" \
+    && curl -fsSL "${RELEASE_URL}/${BINARY}" -o "/tmp/${BINARY}" \
+    && curl -fsSL "${RELEASE_URL}/${BINARY}.sha256" -o /tmp/monaco.sha256 \
+    && cd /tmp \
+    && sha256sum -c monaco.sha256 \
+    && install -m 0755 "/tmp/${BINARY}" /usr/local/bin/monaco \
+    && rm -f "/tmp/${BINARY}" /tmp/monaco.sha256
+
+WORKDIR /workspace
+ENTRYPOINT ["monaco"]
+CMD ["--help"]

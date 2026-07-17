@@ -1,0 +1,42 @@
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: jenkins/Dockerfile
+    container_name: monaco-jenkins
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${JENKINS_HTTP_PORT:-8081}:8080"
+      - "127.0.0.1:${JENKINS_AGENT_PORT:-50001}:50000"
+    environment:
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc_configs/jenkins.yaml
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      JENKINS_ADMIN_ID: ${JENKINS_ADMIN_ID:-admin}
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-admin}
+      JENKINS_URL: ${JENKINS_URL:-http://localhost:8081/}
+      DYNATRACE_API_TOKEN: ${DYNATRACE_API_TOKEN:-REPLACE_WITH_DYNATRACE_API_TOKEN}
+      DYNATRACE_ENV_URL: https://ann36102.live.dynatrace.com
+      GITHUB_REPO_URL: https://github.com/frootima/monaco.git
+      MONACO_IMAGE: monaco-poc:local
+    group_add:
+      - ${DOCKER_GID:-0}
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - ./jenkins/casc:/var/jenkins_home/casc_configs:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  monaco:
+    build:
+      context: .
+      dockerfile: Dockerfile.monaco
+    image: monaco-poc:local
+    profiles: ["tools"]
+    working_dir: /workspace
+    environment:
+      DT_ENV_URL: https://ann36102.live.dynatrace.com
+      DT_API_TOKEN: ${DYNATRACE_API_TOKEN:-REPLACE_WITH_DYNATRACE_API_TOKEN}
+    volumes:
+      - ./:/workspace
+
+volumes:
+  jenkins_home:

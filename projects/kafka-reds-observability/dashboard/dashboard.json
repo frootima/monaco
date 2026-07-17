@@ -1,0 +1,81 @@
+{
+  "dashboardMetadata": {
+    "name": "{{ .name }}",
+    "shared": true,
+    "owner": "{{ .owner }}",
+    "tags": [
+      "kafka",
+      "reds",
+      "monaco",
+      "jenkins"
+    ]
+  },
+  "tiles": [
+    {
+      "name": "Consumer Throughput Rate",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 0, "left": 0, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.consumer.throughput.rate",
+        "visualization": "timeSeries",
+        "title": "Consumer Rate (records/sec)"
+      }
+    },
+    {
+      "name": "Producer Throughput Rate",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 0, "left": 6, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.producer.throughput.rate",
+        "visualization": "timeSeries",
+        "title": "Producer Rate (records/sec)"
+      }
+    },
+    {
+      "name": "Byte Throughput Rate",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 0, "left": 12, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.producer.byte.rate",
+        "visualization": "timeSeries",
+        "title": "Byte Rate (MB/sec)"
+      }
+    },
+    {
+      "name": "Replication Efficiency",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 4, "left": 0, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.replication.efficiency",
+        "visualization": "timeSeries",
+        "title": "Replication Efficiency (%)"
+      }
+    },
+    {
+      "name": "Partition Throughput Rate",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 4, "left": 6, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.consumer.partition.rate",
+        "visualization": "timeSeries",
+        "title": "Partition Rate (records/sec)"
+      }
+    },
+    {
+      "name": "Task Throughput Rate",
+      "tileType": "METRIC_GRAPH",
+      "configured": true,
+      "bounds": { "top": 4, "left": 12, "width": 6, "height": 4 },
+      "metric": {
+        "metric": "custom.kafka.task.throughput.rate",
+        "visualization": "timeSeries",
+        "title": "Task Rate (records/sec)"
+      }
+    }
+  ]
+}

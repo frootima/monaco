@@ -1,0 +1,16 @@
+configs:
+  - id: kafka-consumer-low-throughput
+    type:
+      settings:
+        schema: builtin:anomaly-detection.metric-events
+        scope: environment
+    config:
+      template: low-consumer-throughput.json
+
+  - id: kafka-low-replication-efficiency
+    type:
+      settings:
+        schema: builtin:anomaly-detection.metric-events
+        scope: environment
+    config:
+      template: low-replication-efficiency.json
