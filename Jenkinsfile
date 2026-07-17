@@ -28,7 +28,8 @@ pipeline {
       steps {
         withCredentials([
           string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN'),
-          string(credentialsId: 'dynatrace-platform-token', variable: 'DT_PLATFORM_TOKEN')
+          string(credentialsId: 'dynatrace-oauth-client-id', variable: 'DT_OAUTH_CLIENT_ID'),
+          string(credentialsId: 'dynatrace-oauth-client-secret', variable: 'DT_OAUTH_CLIENT_SECRET')
         ]) {
           sh '''
             set -eu
@@ -36,15 +37,17 @@ pipeline {
               echo "Configure DYNATRACE_API_TOKEN in .env and recreate Jenkins." >&2
               exit 2
             fi
-            if [ "$DT_PLATFORM_TOKEN" = "REPLACE_WITH_DYNATRACE_PLATFORM_TOKEN" ]; then
-              echo "Configure DYNATRACE_PLATFORM_TOKEN in .env and recreate Jenkins." >&2
+            if [ "$DT_OAUTH_CLIENT_ID" = "REPLACE_WITH_DYNATRACE_OAUTH_CLIENT_ID" ] || \
+               [ "$DT_OAUTH_CLIENT_SECRET" = "REPLACE_WITH_DYNATRACE_OAUTH_CLIENT_SECRET" ]; then
+              echo "Configure the Dynatrace OAuth client in .env and recreate Jenkins." >&2
               exit 2
             fi
 
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
-              -e DT_PLATFORM_TOKEN \
+              -e DT_OAUTH_CLIENT_ID \
+              -e DT_OAUTH_CLIENT_SECRET \
               --volumes-from monaco-jenkins \
               -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy --dry-run manifest.yaml
@@ -57,14 +60,16 @@ pipeline {
       steps {
         withCredentials([
           string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN'),
-          string(credentialsId: 'dynatrace-platform-token', variable: 'DT_PLATFORM_TOKEN')
+          string(credentialsId: 'dynatrace-oauth-client-id', variable: 'DT_OAUTH_CLIENT_ID'),
+          string(credentialsId: 'dynatrace-oauth-client-secret', variable: 'DT_OAUTH_CLIENT_SECRET')
         ]) {
           sh '''
             set -eu
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
-              -e DT_PLATFORM_TOKEN \
+              -e DT_OAUTH_CLIENT_ID \
+              -e DT_OAUTH_CLIENT_SECRET \
               --volumes-from monaco-jenkins \
               -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy manifest.yaml

@@ -14,5 +14,8 @@ environmentGroups:
         auth:
           token:
             name: DT_API_TOKEN
-          platformToken:
-            name: DT_PLATFORM_TOKEN
+          oAuth:
+            clientId:
+              name: DT_OAUTH_CLIENT_ID
+            clientSecret:
+              name: DT_OAUTH_CLIENT_SECRET

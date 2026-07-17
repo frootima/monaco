@@ -24,9 +24,14 @@ credentials:
               description: Dynatrace Monaco deployment API token
           - string:
               scope: GLOBAL
-              id: dynatrace-platform-token
-              secret: "${DYNATRACE_PLATFORM_TOKEN}"
-              description: Dynatrace Monaco Platform document token
+              id: dynatrace-oauth-client-id
+              secret: "${DYNATRACE_OAUTH_CLIENT_ID}"
+              description: Dynatrace Monaco OAuth client ID
+          - string:
+              scope: GLOBAL
+              id: dynatrace-oauth-client-secret
+              secret: "${DYNATRACE_OAUTH_CLIENT_SECRET}"
+              description: Dynatrace Monaco OAuth client secret
 
 unclassified:
   location:

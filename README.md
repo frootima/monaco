@@ -17,15 +17,15 @@ and deploys it to `https://ann36102.apps.dynatrace.com`.
 1. Start Docker Desktop and enable WSL integration for this distribution.
 2. Create a Dynatrace access token with `DataExport`, `settings.read`, and
    `settings.write` for environment Settings resources.
-3. Create a separate Dynatrace Platform token with `app-engine:apps:run`,
+3. Create a Dynatrace OAuth client with `app-engine:apps:run`,
    `document:documents:read`, `document:documents:write`,
    `settings:objects:read`, `settings:objects:write`, and
    `settings:schemas:read`.
 4. Use a GitHub personal access token or authenticated GitHub CLI for pushes.
    GitHub account passwords cannot be used for Git operations over HTTPS.
 
-Dynatrace web usernames and passwords are not accepted by Monaco. Access tokens
-and Platform tokens are separate and are not interchangeable.
+Dynatrace web usernames and passwords are not accepted by Monaco. The access
+token and OAuth client authenticate different APIs and both are required here.
 
 ## Start the POC
 
@@ -33,7 +33,8 @@ and Platform tokens are separate and are not interchangeable.
 cp .env.example .env
 ```
 
-Edit `.env` and replace both token placeholders. The file is ignored by Git.
+Edit `.env` and replace the access token and OAuth client placeholders. The file
+is ignored by Git. The Dynatrace account URN is not required by Monaco.
 Then start Jenkins:
 
 ```bash
