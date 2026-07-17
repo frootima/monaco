@@ -37,8 +37,8 @@ pipeline {
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
-              -v "$WORKSPACE:/workspace" \
-              -w /workspace \
+              --volumes-from monaco-jenkins \
+              -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy --dry-run manifest.yaml
           '''
         }
@@ -53,8 +53,8 @@ pipeline {
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
-              -v "$WORKSPACE:/workspace" \
-              -w /workspace \
+              --volumes-from monaco-jenkins \
+              -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy manifest.yaml
           '''
         }
