@@ -4,9 +4,12 @@ ARG TARGETARCH
 ARG MONACO_VERSION=latest
 
 RUN apk add --no-cache ca-certificates curl \
-    && case "${TARGETARCH}" in \
-         amd64|arm64|386) MONACO_ARCH="${TARGETARCH}" ;; \
-         *) echo "Unsupported architecture: ${TARGETARCH}" >&2; exit 1 ;; \
+    && DETECTED_ARCH="${TARGETARCH:-$(uname -m)}" \
+    && case "${DETECTED_ARCH}" in \
+         amd64|x86_64) MONACO_ARCH="amd64" ;; \
+         arm64|aarch64) MONACO_ARCH="arm64" ;; \
+         386|i386|i686) MONACO_ARCH="386" ;; \
+         *) echo "Unsupported architecture: ${DETECTED_ARCH}" >&2; exit 1 ;; \
        esac \
     && if [ "${MONACO_VERSION}" = "latest" ]; then \
          RELEASE_URL="https://github.com/Dynatrace/dynatrace-configuration-as-code/releases/latest/download"; \
