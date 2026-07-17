@@ -1,4 +1,4 @@
-.PHONY: build up down logs validate deploy
+.PHONY: build up down logs render validate deploy
 
 build:
 	docker compose build
@@ -12,8 +12,11 @@ down:
 logs:
 	docker compose logs -f jenkins
 
-validate:
+render:
+	docker compose run --rm --entrypoint sh monaco scripts/render-dashboard.sh
+
+validate: render
 	docker compose run --rm monaco deploy --dry-run manifest.yaml
 
-deploy:
+deploy: render
 	docker compose run --rm monaco deploy manifest.yaml

@@ -3,7 +3,7 @@ FROM alpine:3.22
 ARG TARGETARCH
 ARG MONACO_VERSION=latest
 
-RUN apk add --no-cache ca-certificates curl \
+RUN apk add --no-cache ca-certificates curl jq \
     && DETECTED_ARCH="${TARGETARCH:-$(uname -m)}" \
     && case "${DETECTED_ARCH}" in \
          amd64|x86_64) MONACO_ARCH="amd64" ;; \

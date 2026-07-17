@@ -9,6 +9,7 @@ and deploys it to `https://ann36102.apps.dynatrace.com`.
 - Kafka REDS dashboard with six custom rate and efficiency metrics.
 - Consumer throughput alert below 1000 records/sec for five minutes.
 - Replication efficiency alert below 80 percent for five minutes.
+- Environment-driven dashboard rendering from `template.json` and `env.json`.
 - Jenkins pipeline provisioned automatically as `monaco-dynatrace-deploy`.
 - GitHub push trigger plus two-minute SCM polling fallback.
 
@@ -61,9 +62,15 @@ the token and deploy the initial dashboard and alerts.
 
 ```bash
 docker compose build monaco
-docker compose run --rm monaco deploy --dry-run manifest.yaml
-docker compose run --rm monaco deploy manifest.yaml
+make validate
+make deploy
 ```
+
+`make validate` and `make deploy` first render
+`projects/kafka-reds-observability/dashboard/template.json` with values from
+`projects/kafka-reds-observability/dashboard/env.json`. The generated
+`dashboard.json` is ignored by Git and passed to Monaco for validation or
+deployment.
 
 ## Continuous deployment
 
@@ -79,9 +86,11 @@ https://YOUR-JENKINS-HOST/github-webhook/
 Choose content type `application/json` and the push event. Never expose this POC
 with the default Jenkins password.
 
-To change Dynatrace, edit the files under
-`projects/kafka-reds-observability`, commit, and push to `main`. A failed Monaco
-dry run stops the deployment stage.
+To change dashboard values, edit
+`projects/kafka-reds-observability/dashboard/env.json`. Change
+`template.json` only when the dashboard structure changes. Commit and push to
+`main`; Jenkins renders the dashboard, stops on unresolved variables, validates
+with Monaco, and then deploys it to Dynatrace.
 
 ## Repository initialization
 

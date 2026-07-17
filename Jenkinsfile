@@ -24,6 +24,20 @@ pipeline {
       }
     }
 
+    stage('Render dashboard') {
+      steps {
+        sh '''
+          set -eu
+          docker run --rm \
+            --entrypoint sh \
+            --volumes-from monaco-jenkins \
+            -w "$WORKSPACE" \
+            "$MONACO_IMAGE" scripts/render-dashboard.sh
+        '''
+        archiveArtifacts artifacts: 'projects/kafka-reds-observability/dashboard/dashboard.json', fingerprint: true
+      }
+    }
+
     stage('Validate') {
       steps {
         withCredentials([

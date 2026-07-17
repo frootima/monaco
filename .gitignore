@@ -4,3 +4,4 @@ jenkins_home/
 .vscode/
 *.log
 .logs/
+projects/kafka-reds-observability/dashboard/dashboard.json

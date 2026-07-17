@@ -1,0 +1,100 @@
+{
+  "version": "{{dashboardVersion}}",
+  "variables": [],
+  "tiles": {
+    "0": {
+      "type": "data",
+      "title": "{{consumerTitle}}",
+      "query": "timeseries {{consumerAlias}} = avg({{consumerMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    },
+    "1": {
+      "type": "data",
+      "title": "{{producerTitle}}",
+      "query": "timeseries {{producerAlias}} = avg({{producerMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    },
+    "2": {
+      "type": "data",
+      "title": "{{byteTitle}}",
+      "query": "timeseries {{byteAlias}} = avg({{byteMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    },
+    "3": {
+      "type": "data",
+      "title": "{{replicationTitle}}",
+      "query": "timeseries {{replicationAlias}} = avg({{replicationMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    },
+    "4": {
+      "type": "data",
+      "title": "{{partitionTitle}}",
+      "query": "timeseries {{partitionAlias}} = avg({{partitionMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    },
+    "5": {
+      "type": "data",
+      "title": "{{taskTitle}}",
+      "query": "timeseries {{taskAlias}} = avg({{taskMetric}})",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": "{{maxResultRecords}}",
+        "defaultScanLimitGbytes": "{{defaultScanLimitGbytes}}",
+        "maxResultMegaBytes": "{{maxResultMegaBytes}}",
+        "defaultSamplingRatio": "{{defaultSamplingRatio}}",
+        "enableSampling": "{{enableSampling}}"
+      }
+    }
+  },
+  "layouts": {
+    "0": { "x": 0, "y": 0, "w": 8, "h": 6 },
+    "1": { "x": 8, "y": 0, "w": 8, "h": 6 },
+    "2": { "x": 16, "y": 0, "w": 8, "h": 6 },
+    "3": { "x": 0, "y": 6, "w": 8, "h": 6 },
+    "4": { "x": 8, "y": 6, "w": 8, "h": 6 },
+    "5": { "x": 16, "y": 6, "w": 8, "h": 6 }
+  },
+  "importedWithCode": false,
+  "settings": {}
+}
