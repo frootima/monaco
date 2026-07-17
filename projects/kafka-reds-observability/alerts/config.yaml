@@ -2,7 +2,8 @@ configs:
   - id: kafka-consumer-low-throughput
     type:
       settings:
-        schema: builtin:anomaly-detection.metric-events
+        schema: builtin:davis.anomaly-detectors
+        schemaVersion: 1.0.16
         scope: environment
     config:
       template: low-consumer-throughput.json
@@ -10,7 +11,8 @@ configs:
   - id: kafka-low-replication-efficiency
     type:
       settings:
-        schema: builtin:anomaly-detection.metric-events
+        schema: builtin:davis.anomaly-detectors
+        schemaVersion: 1.0.16
         scope: environment
     config:
       template: low-replication-efficiency.json

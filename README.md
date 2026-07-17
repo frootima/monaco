@@ -1,8 +1,8 @@
 # Dynatrace Monaco and Jenkins POC
 
-This repository manages a Dynatrace Classic dashboard and metric-event alerts
+This repository manages a Dynatrace Platform dashboard and Davis anomaly alerts
 as code. Jenkins watches the `main` branch, validates each change with Monaco,
-and deploys it to `https://ann36102.live.dynatrace.com`.
+and deploys it to `https://ann36102.apps.dynatrace.com`.
 
 ## Managed configuration
 
@@ -15,14 +15,17 @@ and deploys it to `https://ann36102.live.dynatrace.com`.
 ## Prerequisites
 
 1. Start Docker Desktop and enable WSL integration for this distribution.
-2. Create a Dynatrace API token with these scopes:
-   `DataExport`, `ReadConfig`, `WriteConfig`, `settings.read`, and
-   `settings.write`.
-3. Use a GitHub personal access token or authenticated GitHub CLI for pushes.
+2. Create a Dynatrace access token with `DataExport`, `settings.read`, and
+   `settings.write` for environment Settings resources.
+3. Create a separate Dynatrace Platform token with `app-engine:apps:run`,
+   `document:documents:read`, `document:documents:write`,
+   `settings:objects:read`, `settings:objects:write`, and
+   `settings:schemas:read`.
+4. Use a GitHub personal access token or authenticated GitHub CLI for pushes.
    GitHub account passwords cannot be used for Git operations over HTTPS.
 
-Dynatrace web usernames and passwords are not accepted by Monaco. Only the API
-token is needed for this pipeline.
+Dynatrace web usernames and passwords are not accepted by Monaco. Access tokens
+and Platform tokens are separate and are not interchangeable.
 
 ## Start the POC
 
@@ -30,8 +33,8 @@ token is needed for this pipeline.
 cp .env.example .env
 ```
 
-Edit `.env` and replace `REPLACE_WITH_DYNATRACE_API_TOKEN`. The file is ignored
-by Git. Then start Jenkins:
+Edit `.env` and replace both token placeholders. The file is ignored by Git.
+Then start Jenkins:
 
 ```bash
 docker compose up -d --build jenkins

@@ -1,9 +1,9 @@
 configs:
   - id: kafka-reds-rate-metrics
     type:
-      api: dashboard
+      document:
+        kind: dashboard
+        private: false
     config:
       name: Kafka REDS - Rate Throughput Metrics
-      parameters:
-        owner: Monaco Jenkins
       template: dashboard.json

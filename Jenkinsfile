@@ -7,7 +7,7 @@ pipeline {
   }
 
   environment {
-    DT_ENV_URL = 'https://ann36102.live.dynatrace.com'
+    DT_ENV_URL = 'https://ann36102.apps.dynatrace.com'
     MONACO_IMAGE = 'monaco-poc:local'
   }
 
@@ -26,17 +26,25 @@ pipeline {
 
     stage('Validate') {
       steps {
-        withCredentials([string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN')]) {
+        withCredentials([
+          string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN'),
+          string(credentialsId: 'dynatrace-platform-token', variable: 'DT_PLATFORM_TOKEN')
+        ]) {
           sh '''
             set -eu
             if [ "$DT_API_TOKEN" = "REPLACE_WITH_DYNATRACE_API_TOKEN" ]; then
               echo "Configure DYNATRACE_API_TOKEN in .env and recreate Jenkins." >&2
               exit 2
             fi
+            if [ "$DT_PLATFORM_TOKEN" = "REPLACE_WITH_DYNATRACE_PLATFORM_TOKEN" ]; then
+              echo "Configure DYNATRACE_PLATFORM_TOKEN in .env and recreate Jenkins." >&2
+              exit 2
+            fi
 
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
+              -e DT_PLATFORM_TOKEN \
               --volumes-from monaco-jenkins \
               -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy --dry-run manifest.yaml
@@ -47,12 +55,16 @@ pipeline {
 
     stage('Deploy to Dynatrace') {
       steps {
-        withCredentials([string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN')]) {
+        withCredentials([
+          string(credentialsId: 'dynatrace-api-token', variable: 'DT_API_TOKEN'),
+          string(credentialsId: 'dynatrace-platform-token', variable: 'DT_PLATFORM_TOKEN')
+        ]) {
           sh '''
             set -eu
             docker run --rm \
               -e DT_ENV_URL \
               -e DT_API_TOKEN \
+              -e DT_PLATFORM_TOKEN \
               --volumes-from monaco-jenkins \
               -w "$WORKSPACE" \
               "$MONACO_IMAGE" deploy manifest.yaml

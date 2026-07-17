@@ -1,37 +1,30 @@
 {
   "enabled": true,
-  "summary": "Kafka REDS replication efficiency is below 80 percent",
-  "queryDefinition": {
-    "type": "METRIC_KEY",
-    "metricKey": "custom.kafka.replication.efficiency",
-    "metricSelector": "custom.kafka.replication.efficiency",
-    "aggregation": "AVG",
-    "entityFilter": {
-      "conditions": []
-    },
-    "dimensionFilter": []
-  },
-  "modelProperties": {
-    "type": "STATIC_THRESHOLD",
-    "threshold": 80,
-    "alertOnNoData": false,
-    "signalFluctuation": 1,
-    "tolerance": 0,
-    "alertCondition": "BELOW",
-    "violatingSamples": 5,
-    "samples": 5,
-    "dealertingSamples": 5
+  "title": "Kafka REDS replication efficiency is low",
+  "description": "Alerts when replication efficiency remains below 80 percent for five minutes.",
+  "source": "Monaco Jenkins",
+  "executionSettings": {},
+  "analyzer": {
+    "name": "dt.statistics.ui.anomaly_detection.StaticThresholdAnomalyDetectionAnalyzer",
+    "input": [
+      {
+        "key": "query",
+        "value": "timeseries value = avg(custom.kafka.replication.efficiency), interval:1m"
+      },
+      { "key": "threshold", "value": "80" },
+      { "key": "alertCondition", "value": "BELOW" },
+      { "key": "alertOnMissingData", "value": "false" },
+      { "key": "violatingSamples", "value": "5" },
+      { "key": "slidingWindow", "value": "5" },
+      { "key": "dealertingSamples", "value": "5" }
+    ]
   },
   "eventTemplate": {
-    "title": "Kafka REDS replication efficiency is low",
-    "description": "Replication efficiency remained below 80 percent for five minutes.",
-    "eventType": "CUSTOM_ALERT",
-    "davisMerge": true,
-    "metadata": [
-      {
-        "metadataKey": "dt.source",
-        "metadataValue": "monaco-jenkins"
-      }
+    "properties": [
+      { "key": "event.name", "value": "Kafka REDS replication efficiency is low" },
+      { "key": "event.description", "value": "Replication efficiency remained below 80 percent for five minutes." },
+      { "key": "event.type", "value": "CUSTOM_ALERT" },
+      { "key": "dt.source", "value": "monaco-jenkins" }
     ]
   }
 }

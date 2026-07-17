@@ -22,6 +22,11 @@ credentials:
               id: dynatrace-api-token
               secret: "${DYNATRACE_API_TOKEN}"
               description: Dynatrace Monaco deployment API token
+          - string:
+              scope: GLOBAL
+              id: dynatrace-platform-token
+              secret: "${DYNATRACE_PLATFORM_TOKEN}"
+              description: Dynatrace Monaco Platform document token
 
 unclassified:
   location:

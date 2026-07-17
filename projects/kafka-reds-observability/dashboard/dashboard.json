@@ -1,81 +1,100 @@
 {
-  "dashboardMetadata": {
-    "name": "{{ .name }}",
-    "shared": true,
-    "owner": "{{ .owner }}",
-    "tags": [
-      "kafka",
-      "reds",
-      "monaco",
-      "jenkins"
-    ]
-  },
-  "tiles": [
-    {
-      "name": "Consumer Throughput Rate",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 0, "left": 0, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.consumer.throughput.rate",
-        "visualization": "timeSeries",
-        "title": "Consumer Rate (records/sec)"
+  "version": 20,
+  "variables": [],
+  "tiles": {
+    "0": {
+      "type": "data",
+      "title": "Consumer Throughput Rate",
+      "query": "timeseries consumer_rate = avg(custom.kafka.consumer.throughput.rate)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     },
-    {
-      "name": "Producer Throughput Rate",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 0, "left": 6, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.producer.throughput.rate",
-        "visualization": "timeSeries",
-        "title": "Producer Rate (records/sec)"
+    "1": {
+      "type": "data",
+      "title": "Producer Throughput Rate",
+      "query": "timeseries producer_rate = avg(custom.kafka.producer.throughput.rate)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     },
-    {
-      "name": "Byte Throughput Rate",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 0, "left": 12, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.producer.byte.rate",
-        "visualization": "timeSeries",
-        "title": "Byte Rate (MB/sec)"
+    "2": {
+      "type": "data",
+      "title": "Byte Throughput Rate",
+      "query": "timeseries byte_rate = avg(custom.kafka.producer.byte.rate)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     },
-    {
-      "name": "Replication Efficiency",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 4, "left": 0, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.replication.efficiency",
-        "visualization": "timeSeries",
-        "title": "Replication Efficiency (%)"
+    "3": {
+      "type": "data",
+      "title": "Replication Efficiency",
+      "query": "timeseries replication_efficiency = avg(custom.kafka.replication.efficiency)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     },
-    {
-      "name": "Partition Throughput Rate",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 4, "left": 6, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.consumer.partition.rate",
-        "visualization": "timeSeries",
-        "title": "Partition Rate (records/sec)"
+    "4": {
+      "type": "data",
+      "title": "Partition Throughput Rate",
+      "query": "timeseries partition_rate = avg(custom.kafka.consumer.partition.rate)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     },
-    {
-      "name": "Task Throughput Rate",
-      "tileType": "METRIC_GRAPH",
-      "configured": true,
-      "bounds": { "top": 4, "left": 12, "width": 6, "height": 4 },
-      "metric": {
-        "metric": "custom.kafka.task.throughput.rate",
-        "visualization": "timeSeries",
-        "title": "Task Rate (records/sec)"
+    "5": {
+      "type": "data",
+      "title": "Task Throughput Rate",
+      "query": "timeseries task_rate = avg(custom.kafka.task.throughput.rate)",
+      "davis": { "enabled": false, "davisVisualization": { "isAvailable": true } },
+      "visualization": "lineChart",
+      "querySettings": {
+        "maxResultRecords": 1000,
+        "defaultScanLimitGbytes": 500,
+        "maxResultMegaBytes": 1,
+        "defaultSamplingRatio": 10,
+        "enableSampling": false
       }
     }
-  ]
+  },
+  "layouts": {
+    "0": { "x": 0, "y": 0, "w": 8, "h": 6 },
+    "1": { "x": 8, "y": 0, "w": 8, "h": 6 },
+    "2": { "x": 16, "y": 0, "w": 8, "h": 6 },
+    "3": { "x": 0, "y": 6, "w": 8, "h": 6 },
+    "4": { "x": 8, "y": 6, "w": 8, "h": 6 },
+    "5": { "x": 16, "y": 6, "w": 8, "h": 6 }
+  },
+  "importedWithCode": false,
+  "settings": {}
 }
